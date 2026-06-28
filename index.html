@@ -1,0 +1,500 @@
+
+<html>
+    <head>
+        <style>
+
+            img{
+                max-width: 100%;
+                max-height: 100%;
+
+            }
+            .container1{
+                height: 100%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: skyblue;
+            }
+            .intro{
+
+                color: white;
+                display: block;
+            }
+            .loader {
+                width: 120px;
+                height: 22px;
+                border-radius: 20px;
+                color: #514b82;
+                border: 2px solid;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                bottom: 30%;
+                }
+                .loader::before {
+                content: "";
+                position: absolute;
+                margin: 2px;
+                inset: 0 100% 0 0;
+                border-radius: inherit;
+                background: currentColor;
+                animation: moving 8s;
+                animation-iteration-count: 1;
+                }
+                @keyframes moving {
+                    100% {inset:0}
+                }
+                .loader-text {
+                    color: white;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 22;
+
+                }
+                .bottom-text{
+                    position: absolute;
+                    bottom: 10%;
+                    font-size: 40px;
+                    color: white;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                }
+
+            .container{
+                display: none;
+                background-color: green;
+                height: 400px;
+                width: 400px;
+            }
+            .box-main-design{
+                height: 100px;
+                width: 100px;
+                background-color: red;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: top 0.3s ease, left 0.3s ease;
+
+
+            }
+            .box1{
+                position: absolute;
+                top: 25px;
+                left: 10px;
+            }
+
+            .box2{
+                position: absolute;
+                top: 25px;
+                left: 140px;
+            }
+            
+            .box3{
+                position: absolute;
+                top: 25px;
+                left: 270px;
+            }
+
+            .box4{
+                position: absolute;
+                top: 140px;
+                left: 10px;
+            }
+
+            .box5{
+                position: absolute;
+                top: 140px;
+                left: 140px;
+            }
+
+            .box6{
+                position: absolute;
+                top: 140px;
+                left: 270px;
+            }
+
+            .box7{
+                position: absolute;
+                top: 270px;
+                left: 10px;
+            }
+
+            .box8{
+                position: absolute;
+                top: 270px;
+                left: 140px;
+            }
+
+            .box9{
+                position: absolute;
+                top: 270px;
+                left: 270px;
+            }
+        </style>
+    </head>
+    <body onload="shuffle()">
+<div class="container1">
+        <div class="intro">
+            <img src="C:\Users\tingo\Downloads\logo1.png" alt="">
+        
+
+         
+            
+       
+
+        </div>
+
+        <div class="loader">
+            
+            <p class="loader-text"> Loading...  </p>
+        </div>
+
+        <p class="bottom-text"> Puzzle Game</p>
+        
+    </div>
+
+        <div class="container">
+            <div class="box1 box-main-design" onclick="bita(this.getAttribute('class'));" data-x="0" data-y="0">
+                <p>1</p>
+            </div>
+
+            <div class="box2 box-main-design" onclick="bita(this.getAttribute('class'));" data-x="1" data-y="0">
+                <p>2</p>
+
+        </div>
+
+        <div class="box3 box-main-design" onclick="bita(this.getAttribute('class'));" data-x="2" data-y="0">
+            <p>3</p>
+        </div>
+
+        <div class="box4 box-main-design"  onclick="bita(this.getAttribute('class'));" data-x="0" data-y="1">
+            <p>4</p>
+        </div>
+        
+        <div class="box5 box-main-design" onclick="bita(this.getAttribute('class'));" data-x="1" data-y="1">
+            <p>5</p>
+        </div>
+
+        <div class="box6 box-main-design" onclick="bita(this.getAttribute('class'));" data-x="2" data-y="1">
+            <p>6</p>
+
+        </div>
+
+        <div class="box7 box-main-design" onclick="bita(this.getAttribute('class'));" data-x="0" data-y="2">
+            <p>7</p>
+        </div>
+
+        <div class="box8 box-main-design" onclick="bita(this.getAttribute('class'));"  data-x="1" data-y="2">
+            <p>8</p>
+        </div>
+
+        <div class="box9 box-main-design" onclick="bita(this.getAttribute('class'));" data-x="2" data-y="2">
+            <p>9</p>
+        </div>
+
+        </div>
+
+        <button onclick="finalcheck()">Check</button>
+
+        <script>
+
+    setTimeout(function(){
+        document.querySelector(".container1").style.display = "none";
+        document.querySelector(".container").style.display = "block";
+    }, 5200);
+    
+  function check(v) {
+    let name = v;
+    let selector = document.querySelector(`.${name}`);
+    let selector2 = document.querySelector(".box9");
+
+    let x1 = parseInt(selector.getAttribute("data-x"));
+    let y1 = parseInt(selector.getAttribute("data-y"));
+
+    let x2 = parseInt(selector2.getAttribute("data-x"));
+    let y2 = parseInt(selector2.getAttribute("data-y"));
+
+    let check0 = (Math.abs(x1 - x2) === 1 && y1 === y2) || (Math.abs(y1 - y2) === 1 && x1 === x2);
+
+    if (check0) {
+        // Swap attributes
+        selector.setAttribute("data-x", x2);
+        selector.setAttribute("data-y", y2);
+
+        selector2.setAttribute("data-x", x1);
+        selector2.setAttribute("data-y", y1);
+
+        // **No need to redeclare x1, y1, x2, y2 again!** Just use updated values.
+        selector.style.top = `${y2 * 130 + 10}px`;  // Use y2 (not y1)
+        
+        selector.style.left = `${x2 * 130 + 10}px`; // Use x2 (not x1)
+
+        selector2.style.top = `${y1 * 130 + 10}px`;  // Use y1 (not y2)
+        selector2.style.left = `${x1 * 130 + 10}px`; // Use x1 (not x2)
+    }
+}
+
+function shuffle(){
+    var arr = [1, 2, 3, 4, 5, 6, 7, 8];
+    t1 = arr;
+    var counter = t1.length;
+    while (counter > 0){
+        var index = Math.floor(Math.random() * counter);
+        counter--;
+        var temp = t1[counter];
+        t1[counter] = t1[index];
+        t1[index] = temp;
+    }
+    return t1;
+}
+
+//var arr = [1, 2, 3, 4, 5, 6, 7, 8];
+var newarr = shuffle();
+value1 = newarr[0];
+value2 = newarr[1];
+value3 = newarr[2];
+value4 = newarr[3];
+value5 = newarr[4];
+value6 = newarr[5];
+value7 = newarr[6];
+value8 = newarr[7];
+
+var newarray = [value1, value2, value3, value4, value5, value6, value7, value8];
+
+
+
+document.querySelector(".box1").innerHTML = `<p class="v${value1}">${value1}</p>`;
+document.querySelector(".box2").innerHTML = `<p class="v${value2}">${value2}</p>`;
+document.querySelector(".box3").innerHTML = `<p class="v${value3}">${value3}</p>`;
+document.querySelector(".box4").innerHTML = `<p class="v${value4}">${value4}</p>`;
+document.querySelector(".box5").innerHTML = `<p class="v${value5}">${value5}</p>`;
+document.querySelector(".box6").innerHTML = `<p class="v${value6}">${value6}</p>`;
+document.querySelector(".box7").innerHTML = `<p class="v${value7}">${value7}</p>`;
+document.querySelector(".box8").innerHTML = `<p class="v${value8}">${value8}</p>`;
+
+for (let i = 0; i<= 7; i++){
+    if(newarray[i] == 1){
+        var image1 = document.querySelector(".v1").parentNode;
+
+        image1.style.backgroundImage = "url('C:/Users/tingo/Downloads/village-split/imageonline/00.jpg')";
+        image1.style.backgroundSize = "cover";
+        image1.style.backgroundPosition = "center";
+        image1.style.backgroundRepeat = "no-repeat";
+
+    }else if(newarray[i] == 2){
+        var image2 = document.querySelector(".v2").parentNode;
+        image2.style.backgroundImage = "url('C:/Users/tingo/Downloads/village-split/imageonline/10.jpg')";
+        image2.style.backgroundSize = "cover";
+        image2.style.backgroundPosition = "center";
+        image2.style.backgroundRepeat = "no-repeat";
+    }else if(newarray[i] == 3){
+        var image3 = document.querySelector(".v3").parentNode;
+        image3.style.backgroundImage = "url('C:/Users/tingo/Downloads/village-split/imageonline/20.jpg')";
+        image3.style.backgroundSize = "cover";
+        image3.style.backgroundPosition = "center";
+        image3.style.backgroundRepeat = "no-repeat";
+    }else if(newarray[i] == 4){
+        var image4 = document.querySelector(".v4").parentNode;
+        image4.style.backgroundImage = "url('C:/Users/tingo/Downloads/village-split/imageonline/01.jpg')";
+        image4.style.backgroundSize = "cover";
+        image4.style.backgroundPosition = "center";
+        image4.style.backgroundRepeat = "no-repeat";
+    }else if(newarray[i] == 5){
+        var image5 = document.querySelector(".v5").parentNode;
+        image5.style.backgroundImage = "url('C:/Users/tingo/Downloads/village-split/imageonline/11.jpg')";
+        image5.style.backgroundSize = "cover";
+        image5.style.backgroundPosition = "center";
+        image5.style.backgroundRepeat = "no-repeat";
+    }else if(newarray[i] == 6){
+        var image6 = document.querySelector(".v6").parentNode;
+        image6.style.backgroundImage = "url('C:/Users/tingo/Downloads/village-split/imageonline/21.jpg')";
+        image6.style.backgroundSize = "cover";
+        image6.style.backgroundPosition = "center";
+        image6.style.backgroundRepeat = "no-repeat";
+    }else if(newarray[i] == 7){
+        var image7 = document.querySelector(".v7").parentNode;
+        image7.style.backgroundImage = "url('C:/Users/tingo/Downloads/village-split/imageonline/02.jpg')";
+        image7.style.backgroundSize = "cover";
+        image7.style.backgroundPosition = "center";
+        image7.style.backgroundRepeat = "no-repeat";
+    }else if(newarray[i] == 8){
+        var image8 = document.querySelector(".v8").parentNode;
+        image8.style.backgroundImage = "url('C:/Users/tingo/Downloads/village-split/imageonline/12.jpg')";
+        image8.style.backgroundSize = "cover";
+        image8.style.backgroundPosition = "center";
+        image8.style.backgroundRepeat = "no-repeat";
+    }
+
+}
+
+/*
+var image2 = document.querySelector(".v2").parentNode;
+image2.style.backgroundImage = "url('C:/Users/tingo/Downloads/village-split/imageonline/01.jpg')";
+image2.style.backgroundSize = "cover";
+image2.style.backgroundPosition = "center";
+image2.style.backgroundRepeat = "no-repeat";
+
+var image3 = document.querySelector(".v3").parentNode;
+image3.style.backgroundImage = "url('C:/Users/tingo/Downloads/village-split/imageonline/02.jpg')";
+image3.style.backgroundSize = "cover";
+image3.style.backgroundPosition = "center";
+image3.style.backgroundRepeat = "no-repeat";
+
+var image4 = document.querySelector(".v4").parentNode;
+image4.style.backgroundImage = "url('C:/Users/tingo/Downloads/village-split/imageonline/10.jpg')";
+image4.style.backgroundSize = "cover";
+image4.style.backgroundPosition = "center";
+image4.style.backgroundRepeat = "no-repeat";
+
+var image5 = document.querySelector(".v5").parentNode;
+image5.style.backgroundImage = "url('C:/Users/tingo/Downloads/village-split/imageonline/11.jpg')";
+image5.style.backgroundSize = "cover";
+image5.style.backgroundPosition = "center";
+image5.style.backgroundRepeat = "no-repeat";
+
+var image6 = document.querySelector(".v6").parentNode;
+image6.style.backgroundImage = "url('C:/Users/tingo/Downloads/village-split/imageonline/12.jpg')";
+image6.style.backgroundSize = "cover";
+image6.style.backgroundPosition = "center";
+image6.style.backgroundRepeat = "no-repeat";
+
+var image7 = document.querySelector(".v7").parentNode;
+image7.style.backgroundImage = "url('C:/Users/tingo/Downloads/village-split/imageonline/20.jpg')";
+image7.style.backgroundSize = "cover";
+image7.style.backgroundPosition = "center";
+image7.style.backgroundRepeat = "no-repeat";
+
+var image8 = document.querySelector(".v8").parentNode;
+image8.style.backgroundImage = "url('C:/Users/tingo/Downloads/village-split/imageonline/21.jpg')";
+image8.style.backgroundSize = "cover";
+image8.style.backgroundPosition = "center";
+image8.style.backgroundRepeat = "no-repeat";
+*/
+
+
+function finalcheck(){
+    let counter = 0;
+    for(let i = 1; i <= 8; i++){
+        
+
+        var value22 = i;
+    
+    let element1 = document.querySelector(`.v${value22}`);
+    switch(value22){
+        case 1:
+            checkingx1 = parseInt(element1.parentNode.getAttribute("data-x"));
+            checkingy1 = parseInt(element1.parentNode.getAttribute("data-y"));
+            if(checkingx1 == 0 && checkingy1 == 0){
+                console.log("1 is in the right place");
+                counter++;
+            }
+            else{
+                console.log("1 is in the wrong place");
+            }
+            break;
+        case 2:
+            checkingx2 = parseInt(element1.parentNode.getAttribute("data-x"));
+            checkingy2 = parseInt(element1.parentNode.getAttribute("data-y"));
+            if(checkingx2 == 1 && checkingy2 == 0){
+                console.log("2 is in the right place");
+                counter++;
+            }
+            else{
+                console.log("2 is in the wrong place");
+            }
+            break;
+        case 3:
+            checkingx3 = parseInt(element1.parentNode.getAttribute("data-x"));
+            checkingy3 = parseInt(element1.parentNode.getAttribute("data-y"));
+            if(checkingx3 == 2 && checkingy3 == 0){
+                console.log("3 is in the right place");
+                counter++;
+            }
+            else{
+                console.log("3 is in the wrong place");
+            }
+            break;
+        case 4:
+            checkingx4 = parseInt(element1.parentNode.getAttribute("data-x"));
+            checkingy4 = parseInt(element1.parentNode.getAttribute("data-y"));
+            if(checkingx4 == 0 && checkingy4 == 1){
+                console.log("4 is in the right place");
+                counter++;
+            }
+            else{
+                console.log("4 is in the wrong place");
+            }
+            break;
+        case 5:
+            checkingx5 = parseInt(element1.parentNode.getAttribute("data-x"));
+            checkingy5 = parseInt(element1.parentNode.getAttribute("data-y"));
+            if(checkingx5 == 1 && checkingy5 == 1){
+                console.log("5 is in the right place");
+                counter++;
+            }
+            else{
+                console.log("5 is in the wrong place");
+            }
+            break;
+        case 6:
+            checkingx6 = parseInt(element1.parentNode.getAttribute("data-x"));
+            checkingy6 = parseInt(element1.parentNode.getAttribute("data-y"));
+            if(checkingx6 == 2 && checkingy6 == 1){
+                console.log("6 is in the right place");
+                counter++;
+            }
+            else{
+                console.log("6 is in the wrong place");
+            }
+            break;
+        case 7:
+            checkingx7 = parseInt(element1.parentNode.getAttribute("data-x"));
+            checkingy7 = parseInt(element1.parentNode.getAttribute("data-y"));
+            if(checkingx7 == 0 && checkingy7 == 2){
+                console.log("7 is in the right place");
+                counter++;
+            }
+            else{
+                console.log("7 is in the wrong place");
+            }
+            break;
+        case 8:
+            checkingx8 = parseInt(element1.parentNode.getAttribute("data-x"));
+            checkingy8 = parseInt(element1.parentNode.getAttribute("data-y"));
+            if(checkingx8 == 1 && checkingy8 == 2){
+                console.log("8 is in the right place");
+                counter++;
+            }
+            else{
+                console.log("8 is in the wrong place");
+            }
+            break;
+
+    }
+} // for loop ends
+if(counter == 8){
+    console.log("You have won the game");
+    alert("You have won the game");
+}
+else{
+    console.log("You have lost the game");
+    console.log(counter)
+}
+}
+
+function bita(b1){
+    let v= b1.split(" ")[0];
+  
+    check(v);
+    
+  }
+
+        </script>
+    </body>
+</html>
